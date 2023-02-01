@@ -1,3 +1,7 @@
+<x-app-layout>
+    <x-slot name="header">
+        　Index
+    </x-slot>
 <!DOCTYPE html>
 <html lang="{{ str_replace('_','-', app()->getLocale())}}">
     <head>
@@ -8,23 +12,33 @@
         
     </head>
     <body class="antialiased">
-        <h1>Blog Name</h1>
-        <a href="/posts/create">create</a>
+        <h1>Blog Name!</h1>
+        <a href="/posts/create">[create]</a>
         <div class='posts'>
             @foreach($posts as $post)
               <div class='post'>
                 <a href="/posts/{{ $post->id }}"><h2 class='title'>{{ $post->title}}</h2></a>
+                 <div class='category'>
+                   <a href="/categories/{{ $post->category->id }}">{{ $post->category->name }}</a>
                  <p class='body'>{{ $post->body }}</p>
                  <form action="/posts/{{ $post->id }}" id="form_{{ $post->id }}" method="post">
                    @csrf
                    @method('DELETE')
                    <button type="button" onclick="deletePost({{ $post->id}})">delete</button>   
                  </form>
-                
               </div>
             @endforeach
         </div>
         <div>{{$posts->links()}}</div>
+        <div>
+            @foreach($questions as $question)
+            <div>
+                <a href="https://teratail.com/questions/{{ $question['id']}}">
+                    {{ $question['title'] }}
+                </a>
+            </div>
+            @endforeach
+        </div>
         <script>
             function deletePost(id){
                 'use strict'
@@ -35,5 +49,7 @@
                 }
              }
         </script>
+        {{ Auth::user()->name }}
     </body>
 </html>
+</x-app-layout>
