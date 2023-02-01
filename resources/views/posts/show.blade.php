@@ -1,3 +1,4 @@
+<x-app-layout>
 <!DOCTYPE html>
 <html lang="{{ str_replace('_','-', app()->getLocale())}}">
     <head>
@@ -10,16 +11,20 @@
         <h1 class= 'title'>
             {{ $post->title }}
         </h1>
-        <div class='content'>
-             <div class='cotent_post'>
-                 <h3>本文</h3>
-                     <p class='body'>{{$post->body}}</p>                  
-             </div>
-        </div>
         <div class='edit'>
-            <a href="/posts/{{ $post->id }}/edit">edit</a> 
+            <a href="/posts/{{ $post->id }}/edit">[edit]</a> 
+        </div>
+                <div class='content'>
+                     <div class='cotent_post'>
+                         <h3>本文</h3>
+                             <p class='body'>{{$post->body}}</p>                  
+                     </div>
+                </div>
+        <div class='category'>
+           <a href="/categories/{{ $post->category->id }}">{{ $post->category->name }}</a>
         <div class='footer'>
             <a href="/">戻る</a>
         </div>
     </body>
 </html>
+</x-app-layout>
